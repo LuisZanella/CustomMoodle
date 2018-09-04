@@ -30,4 +30,13 @@ public class StudentBLO {
     public Student find(String id){
         return studentDAO.find(id);
     }
+    public Student findByLastName(String lastname){
+     return studentDAO.findByLastName(lastname);
+    }
+    public void delete(Student student){
+        studentDAO.delete(student);
+    }
+    public void update(Student student){
+        studentDAO.update(student);
+    }
 }
