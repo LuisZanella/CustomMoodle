@@ -7,6 +7,8 @@ package edu.salle.custommoodle.view;
 
 import edu.salle.custommoodle.businesslogic.StudentBLO;
 import edu.salle.custommoodle.model.Student;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,6 +41,11 @@ public class StudentWindow extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblStudents = new javax.swing.JTable();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -71,6 +78,32 @@ public class StudentWindow extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, -1, -1));
         getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 90, -1));
 
+        btnUpdate.setText("Update");
+        getContentPane().add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
+
+        btnDelete.setText("Delete");
+        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+
+        tblStudents.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Name", "Last Name"
+            }
+        ));
+        jScrollPane1.setViewportView(tblStudents);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 350, 110));
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 100, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -93,17 +126,44 @@ public class StudentWindow extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
+    private void RefreshTable(){
+            List<Student> studentList = studentBLO.finAll();
+        DefaultTableModel dtm = (DefaultTableModel) this.tblStudents.getModel();
+        Object[] emptyRow = {""};
+        for (int i = 0; i < studentList.size(); i++) {
+            dtm.addRow(emptyRow);
+            dtm.setValueAt(studentList.get(i).getId(), i, 0);
+            dtm.setValueAt(studentList.get(i).getName(), i, 1);
+            dtm.setValueAt(studentList.get(i).getLastName(), i, 2);
+        }
+    }
+    private void ClearTable(){
+        DefaultTableModel dtm = (DefaultTableModel) this.tblStudents.getModel();
+        while(dtm.getRowCount()>0){
+            dtm.removeRow(0);
+        }
+    }
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        ClearTable();
+        RefreshTable();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblStudents;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;

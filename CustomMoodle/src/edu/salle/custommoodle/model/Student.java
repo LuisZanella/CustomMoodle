@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Zane
  */
-public class Student implements Comparable{
+public class Student{
     private String Name;
     private String LastName;
     private String Id;
@@ -49,16 +49,6 @@ public class Student implements Comparable{
     public String toString() {
         return String.format("Id=%s,\nName=%s,\nLastName=%s",Id,Name,LastName); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public int compareTo(Object o) {
-        return ((Student)o).Id.compareTo(Id);
-    }
-    @Override
-    public int hashCode(){
-        return Id.hashCode();
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
